@@ -19,6 +19,8 @@ navigator.mediaDevices.getUserMedia({
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
+  }).catch(error=>{
+    console.log(error);
   })
 
   socket.on('user-connected', userId => {
