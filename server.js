@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
@@ -5,6 +6,7 @@ const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
 const path = require("path");
 app.set('view engine', 'ejs')
+
 app.use(express.static(path.join(__dirname,"/public")))
 
 app.get('/', (req, res) => {
@@ -26,6 +28,6 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(8000,()=>{
+server.listen(process.env.PORT ||8000,()=>{
   console.log("Thanh Cong");
 })
