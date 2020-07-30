@@ -1,8 +1,8 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
-  host: 'webpeerserver.herokuapp.com',
-  source:true
+  host: '52.231.160.98',
+  port:5555
 })
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -19,14 +19,11 @@ navigator.mediaDevices.getUserMedia({
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
     })
-  
-
+  })
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream)
   })
-})}).catch(error=>{
-  console.log(error);
-})
+}).catch(error=>console.log(error));
 
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close()
